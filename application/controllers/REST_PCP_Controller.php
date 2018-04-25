@@ -9,7 +9,8 @@ require(APPPATH.'/libraries/REST_Controller.php');
  */
  class REST_PCP_Controller extends REST_Controller { 
 	protected $lEtudiant;
-	/**
+        protected $laSitution;
+        /**
 	 * Instancie un contrôleur jouant le rôle de service web pour VisPrat
 	 */
 	public function __construct() {
@@ -28,6 +29,7 @@ require(APPPATH.'/libraries/REST_Controller.php');
                                 // on charge tous les modèles
 				$this->load->model("etudiant_model");
                                 $this->load->model("sitpro_model");
+                                $this->load->model("activite_model");
 				// on recherche l'étudiant d'après son login et mot de passe
 				$this->lEtudiant = $this->etudiant_model->get_one_byloginmdp($login, $mdp);
                                 if ( ! is_array($this->lEtudiant) ) {

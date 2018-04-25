@@ -25,7 +25,8 @@ class SitPro_Model extends CI_Model {
                         			$user, $mdp, 
 						array( PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES 'UTF8'",
                                                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION)
-                                                );	
+                                                );
+                    //$this->lEtudiant = $this->etudiant_model->get_one_byloginmdp($login, $mdp);
             }
             catch (Exception $e) {
                     log_message('error', $e->getMessage());

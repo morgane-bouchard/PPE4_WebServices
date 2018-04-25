@@ -26,7 +26,6 @@ class WSSitPros extends REST_PCP_Controller {
         }
         $this->response($res);  
     }  
-    
     /**
      * Fournit au format xml ou json la réussite ou l'échec de la modification de la stituation professionnelle
      * Login et mot de passe de l'étudiant sont traités dans le constructeur de la classe mère
