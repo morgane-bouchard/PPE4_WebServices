@@ -35,7 +35,8 @@ class WSActivite extends REST_PCP_Controller {
             $res = array("status" => 0, "error" => "OK", "sitpros" => $activite);
         }
         else {
-            $res = array("status" => 10, "error" => "Liste des activités impossible à obtenir. Contacter l'administrateur système.");
+            $res = array("status" => 10, "error" => "Liste des activités impossible à obtenir. "
+                . "Contacter l'administrateur système.");
         }
         $this->response($res); 
     }
@@ -76,7 +77,17 @@ class WSActivite extends REST_PCP_Controller {
     /**
      * Supprime une activité à une situation
      */   
-    /*public function delete(){
+    public function delete_get(){
+        $ref = $this->get('ref');
+        $id = $this->get('id');
         
-    }*/
+        $result = $this->activite_model->delete_activity_from_situation($id, $ref);
+        if($result === FALSE) {
+            $res = array('status' => 10, 'error' => "Impossibilité de modifier la situation professionnelle.");
+        }
+        else {
+            $res = array('status' => 0, 'error' => "OK");
+        }
+        $this->response($res);
+    }
 }

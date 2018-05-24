@@ -90,4 +90,20 @@ class Activite_model extends CI_Model {
                 return false;
             }
         }
+        
+        
+        public function delete_activity_from_situation($id, $ref){
+            try {
+                if ($this->cmdSelectBySituationId == null) {
+                    $query = "DELETE FROM port_activitecitee WHERE idActivite = :id AND refSituation = :ref;";
+                    $this->cmdSelectBySituationId = $this->monPdo->prepare($query);
+                }
+                $this->cmdSelectBySituationId->bindParam("id", $id);
+                $this->cmdSelectBySituationId->bindParam("ref", $ref);
+                $this->cmdSelectBySituationId->execute();
+                return $this->cmdSelectBySituationId->rowCount()==1;
+            } catch (Exception $uneException) {
+                return false;
+            }
+        }
 }
