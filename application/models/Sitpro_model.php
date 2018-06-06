@@ -106,5 +106,26 @@ class SitPro_Model extends CI_Model {
             $nb = $cmdUpdate->rowCount();
             return $nb > 0;
 	}
+        
+        /**
+	 * Retourne l'ensemble des situations professionnelles d'un étudiant
+         *  spécifié sous forme de tableaux d'objets situations professionnelles
+	 *
+	 * @return array tableau d'objets situations professionnelles (propriétés objet = colonnes table)
+	 */
+	public function get_sitoblig_bystudent($num) {
+            
+            // préparation de la requête de sélection des SPs à partir du numéro de l'étudiant
+            if ($this->cmdSelectByStudentId == null) {
+ 		$query = "select port_typologie.*, count(port_esttypo.refSituation) as nbSitPro from port_typologie join port_esttypo on port_typologie.code = port_esttypo.codeTypologie join port_situation on port_esttypo.refSituation = port_situation.ref where port_situation.numEtudiant = :num group by port_esttypo.codeTypologie";
+ 		$this->cmdSelectByStudentId = $this->monPdo->prepare($query);
+		$this->cmdSelectByStudentId->setFetchMode(PDO::FETCH_ASSOC);
+            }
+            $this->cmdSelectByStudentId->bindParam("num", $num);
+            $this->cmdSelectByStudentId->execute();
+            $lignes = $this->cmdSelectByStudentId->fetchAll();
+            $this->cmdSelectByStudentId->closeCursor();
+            return $lignes;
+	}
 }
 ?>

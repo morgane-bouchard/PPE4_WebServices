@@ -107,5 +107,22 @@ class WSSitPros extends REST_PCP_Controller {
         }
         return $ok;
     }
+    
+    /**
+     * 
+     * @param 
+     * @return 
+     */
+    public function getSitObligByStudent_get() {
+        $num = $this->lEtudiant["num"];
+        $sitprosoblig = $this->sitpro_model->get_sitoblig_bystudent($num);  
+        if (is_array($sitprosoblig)) {
+            $res = array("status" => 0, "error" => "OK", "sitpros" => $sitprosoblig);
+        }
+        else {
+            $res = array("status" => 10, "error" => "Liste des situations obligatoires impossible à obtenir. Contacter l'administrateur système.");
+        }
+        $this->response($res);  
+    }
 }  
 ?>
